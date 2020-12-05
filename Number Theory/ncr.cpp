@@ -36,6 +36,7 @@ int main()
     facto();
     ll n,m,k,r,sum;
     cin>>n>>r;
+    //ncr=n!/(r!*(n-r)!)
         k=(factor[r]%mod)*(factor[n-r]%mod);
         k%=mod;
         k=bigmod(k,mod-2);
