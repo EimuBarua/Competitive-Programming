@@ -4,8 +4,8 @@ using namespace std;
 
 int main()
 {
-    //10 20 20 40 50
-    //20
+    //leftmost value insert index
+    //lower bound
     ll n,key;
     cin>>n>>key;
     ll a[n];
