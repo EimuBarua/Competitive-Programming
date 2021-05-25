@@ -10,7 +10,7 @@ void seive()
    ll  n=1e7;
     vector<bool>a(n,0);
     prime.pb(2);
-    for(ll i=3;i<=sqrt(n);i+=2)
+    for(ll i=3;i*i<=n;i+=2)
     {
         if(a[i]==0)
         {
