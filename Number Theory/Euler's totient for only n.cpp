@@ -8,7 +8,7 @@ vector<ll>prime;
 void seive()
 {
     vector<bool>vis(10000000,0);
-    for(ll i=3;i<sqrt(10000000);i+=2)
+    for(ll i=3;i*i<=10000000;i+=2)
     {
         if(vis[i]==0)
         {
