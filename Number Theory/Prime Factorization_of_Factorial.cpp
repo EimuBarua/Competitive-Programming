@@ -9,7 +9,7 @@ void seive()
 {
     ll n=1e7;
     vector<bool>vis(n,0);
-    for(ll i=3;i<=sqrt(n);i+=2)
+    for(ll i=3;i*i<=n;i+=2)
     {
         if(vis[i]==0)
         {
