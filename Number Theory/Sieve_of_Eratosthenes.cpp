@@ -10,7 +10,7 @@ void seive()
     vector<bool>vis(n,0);
     //all prime divisors of a number is before the square root of a number
     // 25 =5 prime divisors of 1 - 25  must be in 2 3 4 5
-    for(ll i=3;i<=sqrt(n);i+=2)
+    for(ll i=3;i*i<=n;i+=2)
     {
         if(vis[i]==0)
         {
