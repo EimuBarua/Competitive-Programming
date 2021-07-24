@@ -57,7 +57,7 @@ int main()
                 if(y==0)
                     x++;
                 else
-                    y=fail[y];
+                    y=fail[y-1];
             }
         }
     if(fg)
