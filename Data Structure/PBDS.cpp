@@ -9,6 +9,7 @@ using namespace std;
 #define ulta(i,n,a) for(ll i=n;i>=a;i--)
 #define pb push_back
 /*******  
+complexity all in logn
 *s.find_by_order(i) ith index from 0
 s.order_of_key(k) values stricly less than k
 s.size() - s.order_of_key(k) values greater equal than k  
