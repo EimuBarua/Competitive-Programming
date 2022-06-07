@@ -52,6 +52,7 @@ int main()
     }
 
     dij(src);
+	/*
     soja(i,1,node)
     {
     	cout<<"DIS  "<<i<<" "<<dis[i]<<endl;
@@ -63,5 +64,5 @@ int main()
     		k=parent[k];
     	}
     	cout<<endl;
-    }
+    }*/
 }
