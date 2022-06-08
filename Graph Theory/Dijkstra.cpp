@@ -21,7 +21,7 @@ void dij(ll src)
             {
                 u=x.first;
                 w=x.second;
-                if(dis[k]+w<dis[u])
+                if(dis[k]<inf&&dis[k]+w<dis[u])
                     {
                         q.erase({dis[u],u});
                         dis[u]=dis[k]+w;
