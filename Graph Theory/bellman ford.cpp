@@ -16,47 +16,52 @@ void bellmanford(ll src)
         par[i]=-1;
         }
         dis[src]=0;
-        soja(j,1,node-1)
+        ll xx;
+        /// n-1 time for short dis and nth time for neg cycle detect
+        soja(j,1,node)
         {
-            bool change=0;
+            xx=-1;
             soja(i,0,edge-1)
             {
                 ll x=adj[i].first,y=adj[i].second.first,cost=adj[i].second.second;
                    
                     if(dis[x]<inf&&(dis[x]+cost)<dis[y])
                     {
-                        par[y]=x;
-                    dis[y]=dis[x]+cost;
-                    change=1;
+                    par[y]=x;
+                    dis[y]=max(-inf,dis[x]+cost);/// because of negative cycle it can have negative overflow
+                    xx=y;
                      }
                       
             }
-            if(change==0)
-                break;
         }
-         bool change=0;
-            soja(i,0,edge-1)
+            if(xx==-1)
             {
-                ll x=adj[i].first,y=adj[i].second.first,cost=adj[i].second.second;
-                   
-                    if(dis[x]<inf&&(dis[x]+cost)<dis[y])
+                cout<<"No Negative Cycle"<<endl;
+                soja(i,1,node)
                     {
-                        par[y]=x;
-                    dis[y]=dis[x]+cost;
-                    change=1;
-                     }
-                      
+                         cout<<"Distance from "<<src<<" to "<<i<<" = ";
+                        cout<<dis[i]<<" "<<endl;
+                    }
             }
-        
-            if(change==1)
-               cout<<"Negative Cycle"<<endl;
            else
            {
-            soja(i,1,node)
-                {
-                     cout<<"Distance from "<<src<<" to "<<i<<" = ";
-                    cout<<dis[i]<<" "<<endl;
-                }
+                ll y=xx;//it will go into the cycle after n times back
+                soja(i,1,node)
+                y=par[y];
+               vector<ll>path;
+               for(ll cur=y;;cur=par[cur])
+               {
+                path.pb(cur);
+                if(cur==y&&path.size()>1)
+                    break;
+               }
+               reverse(path.begin(),path.end());
+               cout<<"Negative Cycle: "<<endl;
+               soja(i,0,path.size()-1)
+               {
+                cout<<path[i]<<" ";
+               }
+               
            }
 
 
