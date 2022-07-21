@@ -1,73 +1,66 @@
+// KMP for substring search 
+// complexity O(n+m) sizeof text and pattern
+
 #include<bits/stdc++.h>
 using namespace std;
 #define ll long long int
 #define soja(i,a,n) for(ll i=a;i<=n;i++)
 #define ulta(i,n,a) for(ll i=n;i>=a;i--)
 #define pb push_back
+const ll mx=2e5;//size of pattern string
+ll lps[mx+5];
+void temparray(string pattern)//making lps array with suffix and prefix match
+{
+    ll index=0;
+    for(ll i=1;i<pattern.size();i++)
+    {
+        if(pattern[i]==pattern[index])
+        {
+            lps[i]=++index;
+        }
+        else
+        {
+            if(index!=0)
+            {index=lps[index-1];
+            i--;}
+        }
+    }
+}
+bool kmp(string text,string pattern)
+{
+    ll index=0;
+    for(ll i=0;i<text.size();i++)
+    {
+        if(text[i]==pattern[index])
+            index++;
+        else
+        {
+            if(index!=0)
+            {
+                index=lps[index-1];
+                i--;
+            }
+        }
+        if(index==pattern.size())
+            {cout<<i-pattern.size()+1<<" "<<i<<endl;
+       // index=lps[index-1]; do this for occurences 
+            return true;//it is found in the ith index of the text
+         }
+    }
+    return false;// not found
+}
 int main()
 {
-    ll n,m,k,t,sum=0;
+    ll n,m,k,t,sum=0,x,y,now;
     string text,pattern;
     cin>>text>>pattern;
-    n=text.size();
-    ///making the failure array with prefix and suffix of the pattern
-    m=pattern.size();
-    ll fail[m+2];
-    fail[0]=0;
-    ll x=0;
-    soja(i,1,m-1)
-    {
-        while(1)
-        {
-            if(pattern[x]==pattern[i])
-            {
-                fail[i]=x+1;
-                x++;
-                break;
-            }
-            else if(x==0)
-                {
-                    fail[i]=0;
-                    break;
-                    }
-            else
-                x=fail[x-1];
-        }
-
-    }
-    ///KMP begins
-        x=0;
-        bool fg=0;
-        ll y=0;
-        while(1)
-        {
-            if(y==m)
-            {
-                fg=1;
-                break;
-            }
-            if(x==n)
-                break;
-            if(text[x]==pattern[y])
-            {
-                x++,y++;
-            }
-            else
-            {
-                if(y==0)
-                    x++;
-                else
-                    y=fail[y-1];
-            }
-        }
-    if(fg)
-    {
-        cout<<"YES\n";
-        cout<<x-m<<" "<<x-1<<endl;
-    }
+    temparray(pattern);
+   	// soja(i,0,pattern.size()-1)
+   	// cout<<lps[i]<<" ";
+   	// cout<<endl;
+    if(kmp(text,pattern))
+        cout<<"Yes";
     else
-    {
         cout<<"NO";
-    }
     return 0;
 }
