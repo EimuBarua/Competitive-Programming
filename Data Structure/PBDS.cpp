@@ -13,6 +13,7 @@ complexity all in logn
 s.find_by_order(i)->first for pair
 *s.find_by_order(i) ith index from 0
 s.order_of_key(k) values stricly less than k
+s.erase(s.find_by_order(s.order_of_key(val))) only for the duplicate values and if the val containes in the set
 s.size() - s.order_of_key(k) values greater equal than k
  ****************/
 template<class T> using oset= tree<T,null_type,less<T>,rb_tree_tag,tree_order_statistics_node_update>;///ascending
