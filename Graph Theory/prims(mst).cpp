@@ -50,7 +50,7 @@ int main()
        // cout<<parent[i]<<" "<<i<<endl;
         sum+=mcost[i];
     }
-    cout<<sum<<endl;
+    cout<<sum<<endl;///sum of the cost of the tree
 
     return 0;
 }
