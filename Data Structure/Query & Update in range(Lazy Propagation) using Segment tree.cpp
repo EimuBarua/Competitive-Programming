@@ -5,7 +5,7 @@ using namespace std;
 #define soja(i,a,n) for(ll i=a;i<=n;i++)
 #define ulta(i,n,a) for(ll i=n;i>=a;i--)
 #define pb push_back
-ll a[100123],seg[100123],lazy[100123];
+ll a[100123],seg[100123],lazy[100123];   //4*array size
 void build(ll x,ll y,ll index)
 {
     ll k=(x+y)/2;
