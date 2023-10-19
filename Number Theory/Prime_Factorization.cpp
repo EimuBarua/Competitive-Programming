@@ -25,11 +25,10 @@ void seive()
 }
 ll primefactor(ll n,vector<ll>&a)
 {
-    seive();
     ll m=sqrt(n);
     soja(i,0,prime.size()-1)
     {
-        while(n%prrime[i]==0)
+        while(n%prime[i]==0)
         {
             a.pb(prime[i]);
             n/=prime[i];
@@ -43,6 +42,7 @@ ll primefactor(ll n,vector<ll>&a)
 }
 int main()
 {
+    seive();
     ll n;
     vector<ll>a;
     cin>>n;
@@ -50,4 +50,3 @@ int main()
     soja(i,0,a.size()-1)
     cout<<a[i]<<" ";
 }
-
