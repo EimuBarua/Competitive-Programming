@@ -29,10 +29,8 @@ ll primefactor(ll n,vector<ll>&a)
     ll m=sqrt(n);
     soja(i,0,prime.size()-1)
     {
-        while(1)
+        while(n%prrime[i]==0)
         {
-            if(n%prime[i]!=0)
-                break;
             a.pb(prime[i]);
             n/=prime[i];
         }
