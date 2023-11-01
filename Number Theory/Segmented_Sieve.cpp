@@ -24,12 +24,11 @@ void seive()
             prime.pb(i);
     }
 }
-ll segseive(ll l,ll r,vector<ll>&v)
+void segseive(ll l,ll r,vector<ll>&v)
 {
-    seive();
     ll k;
     vector<bool>a(r-l+1,0);
-    
+
     soja(i,0,prime.size()-1)
     {
         //because all prime divisors are before the sqrt(n)
@@ -39,13 +38,15 @@ ll segseive(ll l,ll r,vector<ll>&v)
             //l=20,k=20/3;k=6;k*=3;k=18 18<20 so (l%prime[i]) k++,then k=21
             if(l%prime[i]!=0)
                 k++;
+
             k*=prime[i];
+            if(k==prime[i])k+=prime[i];
         for(ll j=k;j<=r;j+=prime[i])
             a[j-l]=1;
     }
 soja(i,0,a.size()-1)
 {
-    if(a[i]==0)
+    if(a[i]==0&&(i+l)>1)
     {
         v.pb(i+l);
     }
@@ -53,10 +54,12 @@ soja(i,0,a.size()-1)
 }
 int main()
 {
+    seive();
 ll l,r;
+ll t;
 vector<ll>v;
 cin>>l>>r;
 segseive(l,r,v);
 soja(i,0,v.size()-1)
-cout<<v[i]<<" ";
+cout<<v[i]<<"\n";
 }
