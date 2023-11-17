@@ -30,8 +30,8 @@ void manachers(string ss)
        p[i]++;
        if((i+p[i])>r)
        {
-        l=i-p[i];
-        r=i+p[i];
+        l=i-p[i]+1;
+        r=i+p[i]-1;
 
        }
     }
