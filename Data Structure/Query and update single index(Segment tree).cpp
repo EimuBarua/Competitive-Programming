@@ -7,7 +7,7 @@ using namespace std;
 #define pb push_back
 #define endl "\n"
 const ll mx=2e5+5;
-ll a[mx],seg[4*mx],lazy[10*mx];   //4*array size
+ll a[mx],seg[10*mx],lazy[10*mx];   //4*array size
 void build(ll x,ll y,ll index)
 {
     ll k=(x+y)/2;
