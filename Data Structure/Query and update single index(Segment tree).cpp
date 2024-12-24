@@ -1,57 +1,86 @@
+//Range query finding the sum in the given range & update in range(Lazy Propagation) using Segment tree
 #include<bits/stdc++.h>
 using namespace std;
-#define ll long long int
+#define ll  long long int
 #define soja(i,a,n) for(ll i=a;i<=n;i++)
 #define ulta(i,n,a) for(ll i=n;i>=a;i--)
 #define pb push_back
-const ll mx=1e5+7;
-ll a[mx];
-ll tree[mx*4];//////segment tree for sum 
-void build(ll x,ll y,ll node)///top to bottom
+#define endl "\n"
+const ll mx=2e5+5;
+ll a[mx],seg[4*mx],lazy[10*mx];   //4*array size
+void build(ll x,ll y,ll index)
 {
-	if(x==y)
-		tree[node]=a[x];
-	else
-	{
-		ll mid=(x+y)/2;
-		build(x,mid,node*2);
-		build(mid+1,y,node*2+1);
-		tree[node]=tree[node*2]+tree[node*2+1];
-	}
+    ll k=(x+y)/2;
+    if(x==y)
+        {seg[index]=a[x];
+        return;}
+   build(x,k,index*2);
+   build(k+1,y,index*2+1);
+   seg[index]=seg[index*2]+seg[index*2+1];
 }
-ll query(ll x,ll y,ll x1,ll y1,ll node)
-{            
-	if(y1<x||y<x1)
-		return 0; /// because of sum return 0 (out of range)
-	if(x<=x1&&y>=y1)
-		return tree[node];
-	ll mid=(x1+y1)/2;
-	ll sum=0;
-	sum+=query(x,y,x1,mid,node*2);
-	sum+=query(x,y,mid+1,y1,node*2+1);
-	return sum;
-}
-void update(ll x,ll x1,ll y1,ll node,ll val)///single update
+
+ll check(ll x,ll y,ll index,ll qx,ll qy)
 {
-	if(y1<x||x<x1)
-		return; /// (out of range)
-	if(x<=x1&&x>=y1)
-	{
-		tree[node]=val;
-		return;
-	}
-	ll mid=(x1+y1)/2;
-	update(x,x1,mid,node*2,val);
-	update(x,mid+1,y1,node*2+1,val);
-	tree[node]=tree[node*2]+tree[node*2+1];
+    seg[index]+=lazy[index];
+    lazy[index*2] += lazy[index];
+    lazy[index*2+1] += lazy[index];
+    lazy[index] = 0;
+    if(x>=qx&&y<=qy)
+    {
+   //  cout<<x<<" tttt "<<y<<endl;
+        return seg[index];
+
+    }
+    if(y<qx||x>qy)
+        return 0;
+        ll k=(x+y)/2;
+    ll sum=check(x,k,index*2,qx,qy)+check(k+1,y,index*2+1,qx,qy);
+    return sum;
+}
+void update(ll x,ll y,ll qx,ll qy,ll index,ll c)
+{
+   seg[index]+=lazy[index];
+   if(x!=y)
+    {lazy[index*2]+=lazy[index];
+    lazy[index*2+1]+=lazy[index];
+    }
+        lazy[index]=0;
+    if(y<qx||x>qy)
+        return ;
+    if(x>=qx&&y<=qy)
+         {seg[index]+=c;
+         if(x!=y)
+         {lazy[index*2]+=c;
+         lazy[index*2+1]+=c;
+         }
+         return;
+         }
+        ll k=(x+y)/2;
+   update(x,k,qx,qy,index*2,c);
+   update(k+1,y,qx,qy,index*2+1,c);
+    seg[index]=seg[index*2]+seg[index*2+1];
 }
 int main()
 {
-	ll n,m,k,t,sum=0,x,y;
-	cin>>n;
-	soja(i,1,n)
-	{
-		cin>>a[i];
-	}
-	build(1,n,1);
+
+    ll n,m,k,t,sum=0,x,y,q,c;
+    cin>>n>>t;
+    soja(i,1,n)
+    cin>>a[i];
+   build(1,n,1);
+   while(t--)
+   {
+       cin>>q>>x>>y;
+       if(q==2)
+       {
+       cout<<check(1,n,1,x,y)<<endl;
+       }
+       else
+       {
+           cin>>y>>c;
+        update(1,n,x,y,1,c);
+       }
+   }
+
+    return 0;
 }
